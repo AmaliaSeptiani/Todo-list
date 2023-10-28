@@ -1,25 +1,18 @@
-import React from 'react'
+import { useSelector } from 'react-redux'
 
 function TodoList() {
+    const {todos} = useSelector(state => state.todo)
   return (
     <div>
-        <div>
-            <span>Belajar React</span>
+        {todos.map((todo) => (
+        <div key={todo.id}>
+            <span>{todo.value}</span>
             <button>✏️</button>
             <button>❌</button>
         </div>
-        <div>
-            <span>Belajar React</span>
-            <button>✏️</button>
-            <button>❌</button>
-        </div>
-        <div>
-            <span>Belajar React</span>
-            <button>✏️</button>
-            <button>❌</button>
-        </div>
-    </div>
-  )
+        ))}
+           </div>
+  );
 }
 
-export default TodoList
+export default TodoList;
