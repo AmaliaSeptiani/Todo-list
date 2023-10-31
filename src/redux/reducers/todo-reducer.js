@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodo, editTodo } from './todoReducer'; 
+import { deleteTodo, editTodo } from './todoReducer';
+
 function TodoList() {
     const dispatch = useDispatch();
     const { todos } = useSelector(state => state.todo);
-
     const [editValue, setEditValue] = useState(""); 
 
     const handleEdit = (todo) => {
         if (editValue) {
-            dispatch(editTodo(todo.id, editValue));
+            dispatch(editTodo(todo.id, editValue)); 
             setEditValue(""); 
-        }
     }
 
     return (
@@ -38,6 +37,7 @@ function TodoList() {
             ))}
         </div>
     );
+}
 }
 
 export default TodoList;

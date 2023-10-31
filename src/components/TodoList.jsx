@@ -13,7 +13,6 @@ function TodoList() {
     }
 
     const handleEdit = (id) => {
-        // Dispatch the editTodo action with the new value
         dispatch(editTodo(id, editValues[id]));
     }
 
