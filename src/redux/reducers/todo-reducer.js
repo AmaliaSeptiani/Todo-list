@@ -1,43 +1,43 @@
-const initialState = {
-    todos: [
-        {id: 1, value: "belajar react"},
-        {id: 2, value: "belajar redux"},
-    ],
-}
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodo, editTodo } from './todoReducer'; 
+function TodoList() {
+    const dispatch = useDispatch();
+    const { todos } = useSelector(state => state.todo);
 
-function todoReducer (state = initialState, action) {
-    switch (action.type){
-        case "ADD_TODO":
-            const newTodo ={
-                id: Date.now(),
-                value: action.payload
-            }
+    const [editValue, setEditValue] = useState(""); 
 
-            const cloneTodos = [...state.todos, newTodo]
-            return{
-                todos: cloneTodos
-            }
-        case "DELETE_TODO":
-        const filterTodo = state.todos.filter(item => item.id != action.payload)  
-        return{
-                todos: filterTodo
-            } 
-        default: return state
+    const handleEdit = (todo) => {
+        if (editValue) {
+            dispatch(editTodo(todo.id, editValue));
+            setEditValue(""); 
+        }
     }
+
+    return (
+        <div>
+            {todos.map((todo) => (
+                <div key={todo.id}>
+                    {editValue ? (
+                        <div>
+                            <input
+                                type="text"
+                                value={editValue}
+                                onChange={(e) => setEditValue(e.target.value)}
+                            />
+                            <button onClick={() => handleEdit(todo)}>Save</button>
+                        </div>
+                    ) : (
+                        <div>
+                            <span>{todo.value}</span>
+                            <button onClick={() => setEditValue(todo.value)}>Edit</button>
+                            <button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</button>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
 }
 
-export function addTodo (input) {
-    return{
-        type : "ADD_TODO",
-        payload: input
-    }
-}
-
-export function deleteTodo (id){
-    return{
-        type : "DELETE_TODO",
-        payload: id
-    }
-}
-
-export default todoReducer
+export default TodoList;
