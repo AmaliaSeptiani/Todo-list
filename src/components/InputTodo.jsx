@@ -13,9 +13,10 @@ function InputTodo(){
     }
 
     return (
-        <div>
+        <div id='container1'>
+            <h1>What's The Plane For Today?</h1>
         <form>
-        <input type="text" placeholder='input todo' value={input} onChange={(e) => setInput(e.target.value)} />
+        <input type="text" placeholder='What to do' value={input} onChange={(e) => setInput(e.target.value)} />
         <button onClick={handleClick}>Add</button>
         </form>
 
